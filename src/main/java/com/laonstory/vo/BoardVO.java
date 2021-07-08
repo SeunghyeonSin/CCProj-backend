@@ -2,6 +2,8 @@ package com.laonstory.vo;
 
 import java.sql.Date;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,7 +17,7 @@ public class BoardVO {
 	private String nickname;
 	private String title;
 	private String content;
-	private String file;
+	//private String file;
 	private Date date;
 	private int cnt;
 	
@@ -43,12 +45,12 @@ public class BoardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public String getFile() {
+	/*public String getFile() {
 		return file;
 	}
 	public void setFile(String file) {
 		this.file = file;
-	}
+	}*/
 	public Date getDate() {
 		return date;
 	}
@@ -65,7 +67,7 @@ public class BoardVO {
 	@Override
 	public String toString() {
 		return "BoardVO [bnum=" + bnum + ", nickname=" + nickname + ", title=" + title + ", content=" + content
-				+ ", file=" + file + ", date=" + date + ", cnt=" + cnt + "]";
+				 + ", date=" + date + ", cnt=" + cnt + "]";
 	}
 	
 	

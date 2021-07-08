@@ -8,6 +8,11 @@
 		SELECT * FROM board WHERE bnum=#{bnum}
 	</select>
 	
+	<!-- 파일 불러오기 -->
+	<select id="fileDetail" parameterType="int" resultType="com.laonstory.vo.FileVO">
+		SELECT * FROM files WHERE bnum=#{bnum}
+	</select>
+	
 	<!-- 게시글 리스트 불러오기 -->
 	<select id="getListBoard" resultType="com.laonstory.vo.BoardVO">
 		SELECT * FROM board
@@ -15,12 +20,12 @@
 	
 	<!-- 게시글 입력 -->
 	<insert id="insertBoard" parameterType="com.laonstory.vo.BoardVO" useGeneratedKeys="true" keyProperty="bnum">
-		INSERT INTO board(nickname, title, content, file) VALUES(#{nickname}, #{title}, #{content}, #{file})
+		INSERT INTO board(nickname, title, content) VALUES(#{nickname}, #{title}, #{content})
 	</insert>
 	
 	<!-- 파일 업로드 -->
 	<insert id="fileInsert" parameterType="com.laonstory.vo.FileVO">
-       INSERT INTO files (fnum, bnumm, fileName, fileOriName, fileUrl) VALUES (#{fnum}, #{bnum}, #{fileName}, #{fileOriName}, #{fileUrl})
+       INSERT INTO files (fnum, bnum, fileName, fileOriName, fileUrl) VALUES (#{fnum}, #{bnum}, #{fileName}, #{fileOriName}, #{fileUrl})
 	</insert>
 	
 	<!-- 게시글 수정 -->

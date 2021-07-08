@@ -23,8 +23,8 @@
 		<td>${board.nickname}</td>
 	</tr>
 	<tr>
-		<td bgcolor="orange">이미지</td>
-		<td>${board.file}</td>
+		<td bgcolor="orange">첨부파일</td>
+		<td><a href="/fileDown/${files.bnum}">${files.fileOriName}</a></td>
 	</tr>
 	<tr>
 		<td bgcolor="orange">내용</td>

@@ -12,6 +12,7 @@ import com.laonstory.vo.SearchVO;
 public interface BoardMapper {
 
 	public BoardVO getBoard(BoardVO vo);
+	public FileVO fileDetail(int bnum);
 	public List<BoardVO> getListBoard();
 	public void insertBoard(BoardVO vo);
 	public int fileInsert(FileVO file);

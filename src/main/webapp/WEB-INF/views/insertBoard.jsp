@@ -23,7 +23,7 @@ ${nickname}님 <a href="logout">Logout</a>
 	</tr>
 	<tr>
 		<td bgcolor="orange">이미지</td>
-		<td><input type="file" name="file"></td>
+		<td><input type="file" name="files"></td>
 	</tr>
 	<tr>
 		<td bgcolor="orange">내용</td>

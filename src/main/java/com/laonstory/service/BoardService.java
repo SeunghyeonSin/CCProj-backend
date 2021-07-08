@@ -21,6 +21,11 @@ public class BoardService implements BoardMapper{
 	public BoardVO getBoard(BoardVO vo) {
 		return mapper.getBoard(vo);
 	}
+	
+	@Override
+	public FileVO fileDetail(int bnum) {
+		return mapper.fileDetail(bnum);
+	}
 
 	@Override
 	public List<BoardVO> getListBoard() {
