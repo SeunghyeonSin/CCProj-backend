@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:700');
+@keyframes showTopText {
+  0% { transform: translate3d(0, 100%, 0); }
+  40%, 60% { transform: translate3d(0, 50%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+@keyframes showBottomText {
+  0% { transform: translate3d(0, -100%, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+body{
+	overflow:hidden;
+	margin:0;
+}
+.animated-title {
+  color: #222;
+  font-family: Roboto, Arial, sans-serif;
+  height: 100%;
+  left: 40%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+}
+.animated-title > div {
+  height: 50%;
+  overflow: hidden;
+  position: absolute;
+  width: 100%;
+}
+.animated-title > div div {
+  font-size: 12vmin;
+  padding: 2vmin 0;
+  position: absolute;
+}
+.animated-title > div div span {
+  display: block;
+}
+.animated-title > div.text-top {
+  border-bottom: 1vmin solid #000;
+  top: 0;
+}
+.animated-title > div.text-top div {
+  animation: showTopText 1s;
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+  bottom: 0;
+  transform: translate(0, 100%);
+}
+.animated-title > div.text-top div span:first-child {
+  color: #767676;
+}
+.animated-title > div.text-bottom {
+  bottom: 0;
+}
+.animated-title > div.text-bottom div {
+  animation: showBottomText 0.5s;
+  animation-delay: 1.75s;
+  animation-fill-mode: forwards;
+  top: 0;
+  transform: translate(0, -100%);
+}
+
+.login{
+	float:right;
+	width:20%;
+	height:2000px;
+	border:1px solid #c0c0c0;
+	border-width:0px 0px 0px 1px;
+}
+
+.logo{
+	width:300px;
+	height:300px;
+	position:relative;
+	left:7%;
+	top:20px;
+	margin:0 auto;
+}
+
+.inputid {
+  width: 300px;
+  height: 40px;
+  position: relative;
+  left:20px;
+  bottom:60px;
+}
+.inputpassword {
+  width: 300px;
+  height: 40px;
+  position: relative;
+  left:20px;
+  bottom:40px
+}
+.subBtn {
+  width: 307px;
+  height: 50px;
+  background-color: rgb(46, 46, 46);
+  border: 1px solid rgb(80, 80, 80);
+  position: relative;
+  left:22px;
+  text-align: center;
+  bottom: 5px;
+  color: white;
+  cursor: pointer;
+}
+.joinBtn {
+  width: 309px;
+  height: 50px;
+  background-color: rgb(46, 46, 46);
+  border: 1px solid rgb(80, 80, 80);
+  position: relative;
+  left:22px;
+  top:20px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+}
+
+.google{
+  position:relative;
+  top:30px;
+  width: 355px;
+  height: 100px;
+}
+
+.find{
+  text-decoration: none;
+  color:black;
+  font-size: 12px;
+  float:left;
+  position:relative;
+  left:22px;
+  bottom:20px;
+}

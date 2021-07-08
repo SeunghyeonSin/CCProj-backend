@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laonstory.mapper.UserMapper">
+
+	<!-- 사용자 목록 출력 -->
+	<select id="selectUser" resultType="com.laonstory.vo.UserVO">
+		SELECT * FROM user
+	</select>
+	
+	<!-- 사용자 출력 -->
+	<select id="getUser" parameterType="com.laonstory.vo.UserVO" resultType="com.laonstory.vo.UserVO">
+		SELECT * FROM user WHERE memId=#{memId}
+	</select>
+	
+	<!-- 로그인 체크 -->
+	<select id="loginCheck" parameterType="com.laonstory.vo.UserVO" resultType="com.laonstory.vo.UserVO">
+		SELECT * FROM user WHERE memId=#{memId} AND memPassword=#{memPassword}
+	</select>
+	
+	<!-- 회원가입 -->
+	<insert id="insertUser" parameterType="com.laonstory.vo.UserVO">
+		INSERT INTO user VALUES(#{memId}, #{memPassword}, #{memName}, #{memNickname}, #{memEmail}, #{memRole})
+	</insert>
+	
+	<!-- 아이디 중복 체크 -->
+	<select id="idCheck" resultType="com.laonstory.vo.UserVO">
+		SELECT memId FROM user WHERE memId=#{memId}
+	</select>
+	
+	<!-- 닉네임 중복 체크 -->
+	<select id="nickCheck" resultType="com.laonstory.vo.UserVO">
+		SELECT memNickname FROM user WHERE memNickname=#{memNickname}
+	</select>
+	
+	<!-- 사용자 수정 -->
+	<update id="updateUser" parameterType="com.laonstory.vo.UserVO">
+		UPDATE user SET memId=#{memId}, memPassword=#{memPassword}, memName=#{memName}, memNickname=#{memNickname}, memEmail=#{memEmail}, memRole=#{memRole} where memId=#{memId}
+	</update>
+	
+	<!-- 사용자 삭제 -->
+	<delete id="deleteUser" parameterType="com.laonstory.vo.UserVO">
+		DELETE FROM user where memId=#{memId};
+	</delete>
+	
+	<!-- 사용자 검색 -->
+	<select id="getListSearch" parameterType="com.laonstory.vo.SearchVO" resultType="com.laonstory.vo.UserVO">
+		SELECT * FROM user WHERE ${searchCondition} like concat('%', #{searchKeyword}, '%')
+	</select>
+	
+</mapper>
