@@ -21,15 +21,15 @@ public class CommentController {
 	
 	//¥Ò±€ ∏ÆΩ∫∆Æ
 	@RequestMapping("/commentlist")
-    @ResponseBody
+    //@ResponseBody
     public List<CommentVO> CommentServiceList(Model model) {
         return service.getListComment();
     }
     
 	//¥Ò±€ ¿€º∫
     @RequestMapping("/commentinsert")
-    @ResponseBody
-    public String CommentServiceInsert(@RequestBody int boardid, @RequestBody String content, @RequestBody String writer) {
+    //@ResponseBody
+    public String CommentServiceInsert(int boardid, String content, @RequestBody String writer) {
         
         CommentVO comment = new CommentVO();
         comment.setBoardid(boardid);
@@ -41,8 +41,8 @@ public class CommentController {
     
     //¥Ò±€ ºˆ¡§
     @RequestMapping("/commentupdate")  
-    @ResponseBody
-    public String CommentServiceUpdateProc(@RequestBody int commentid, @RequestBody String content) {
+    //@ResponseBody
+    public String CommentServiceUpdateProc(int commentid, String content) {
         CommentVO comment = new CommentVO();
         comment.setCommentid(commentid);
         comment.setContent(content);
@@ -51,8 +51,8 @@ public class CommentController {
     
     //¥Ò±€ ªË¡¶
     @RequestMapping("/commentdelete/{commentid}")  
-    @ResponseBody
-    public int CommentServiceDelete(@PathVariable int commentid) {
+    //@ResponseBody
+    public int CommentServiceDelete(int commentid) {
         return service.deleteComment(commentid);
     }
 }

@@ -45,7 +45,7 @@
 </table>
 </form>
 <hr>
-<a href="/boardupdate?bnum=${board.bnum }">글수정/a>&nbsp;&nbsp;&nbsp;
+<a href="/boardupdate?bnum=${board.bnum}">글수정</a>&nbsp;&nbsp;&nbsp;
 <a href="/boarddelete?bnum=${board.bnum}">글삭제</a>&nbsp;&nbsp;&nbsp;
 </body>
 </html>

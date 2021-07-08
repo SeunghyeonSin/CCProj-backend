@@ -4,6 +4,7 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 import com.laonstory.vo.BoardVO;
+import com.laonstory.vo.FileVO;
 import com.laonstory.vo.SearchVO;
 
 @Repository
@@ -13,6 +14,7 @@ public interface BoardMapper {
 	public BoardVO getBoard(BoardVO vo);
 	public List<BoardVO> getListBoard();
 	public void insertBoard(BoardVO vo);
+	public int fileInsert(FileVO file);
 	public void updateBoard(BoardVO vo);
 	public void deleteBoard(int bnum);
 	public List<BoardVO> getListSearch(SearchVO vo);

@@ -11,7 +11,7 @@
 <h1>새로운 글 등록 화면</h1>
 ${nickname}님 <a href="logout">Logout</a>
 <hr>
-<form method="post" enctype="multipart/form-data">
+<form action="/boardinsert" method="post" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td bgcolor="orange">제목</td>

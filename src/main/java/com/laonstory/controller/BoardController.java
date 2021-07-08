@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.laonstory.service.BoardService;
 import com.laonstory.vo.BoardVO;
+import com.laonstory.vo.FileVO;
 import com.laonstory.vo.SearchVO;
 
 @Controller
@@ -47,16 +48,16 @@ public class BoardController {
 	}
 	
 	//게시글 검색
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/boardlist")
-	public Model boardlistSearch(@RequestBody SearchVO searchvo, @RequestBody Model model) {
+	public String boardlistSearch(SearchVO searchvo, Model model) {
 		System.out.println("게시글 검색");
 		List<BoardVO> bList = service.getListSearch(searchvo);
 		for (BoardVO boardVO : bList) {
 			System.out.println("list" + boardVO);
 		}
 		model.addAttribute("boardlist", bList);
-		return model;
+		return "boardList";
 	}
 	
 	//게시글 등록
@@ -67,21 +68,30 @@ public class BoardController {
 	}
 
 	@PostMapping("/boardinsert")
-	public String insertBoard(BoardVO vo, @RequestPart MultipartFile files) {
+	public String insertBoard(BoardVO vo, @RequestPart MultipartFile files) throws Exception {
 		System.out.println("게시글등록" + vo);
-		
-		String sourceFileName = files.getOriginalFilename();
-		String sourceFileNameExtension = FilenameUtils.getExtension(sourceFileName).toLowerCase();
-		File destinationFile;
-		String destinationFileName;
-		String fileUrl = "C:\\Users\\tlstm\\Documents\\workspace-spring-tool-suite-4-4.11.0.RELEASE\\CCProj\\src\\main\\webapp\\WEB-INF\\uploadFiles";
-		do { 
-            destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + sourceFileNameExtension; 
-            destinationFile = new File(fileUrl + destinationFileName); 
-        } while (destinationFile.exists()); 
-        destinationFile.getParentFile().mkdirs(); 
-        files.transferTo(destinationFile);
-        service.insertBoard(vo);
+		FileVO file = new FileVO();
+		if(files.isEmpty()) {
+			service.insertBoard(vo);
+		} else {
+			String FileName = files.getOriginalFilename();
+			String FileNameExtension = FilenameUtils.getExtension(FileName).toLowerCase();
+			File destinationFile;
+			String destinationFileName;
+			String fileUrl = "C:\\Users\\tlstm\\Documents\\workspace-spring-tool-suite-4-4.11.0.RELEASE\\CCProj\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+			do { 
+				destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + FileNameExtension; 
+				destinationFile = new File(fileUrl + destinationFileName); 
+			} while (destinationFile.exists()); 
+			destinationFile.getParentFile().mkdirs();
+			files.transferTo(destinationFile);
+			service.insertBoard(vo);
+			file.setBnum(vo.getBnum());
+			file.setFileName(destinationFileName);
+			file.setFileOriName(FileName);
+			file.setFileUrl(fileUrl);
+			service.fileInsert(file);
+		}
 		return "redirect:/boardlist";
 	}
 	
@@ -94,18 +104,18 @@ public class BoardController {
 		model.addAttribute("board", board);
 		return "updateBoard";
 	}
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/boardupdate")
-	public String updateBoard(@RequestBody BoardVO up) {
+	public String updateBoard(BoardVO up) {
 		System.out.println("게시글 수정" + up);
 		service.updateBoard(up);
 		return "redirect:/boardlist";
 	}
 	
 	//게시글 삭제
-	@ResponseBody
+	//@ResponseBody
 	@GetMapping("/boarddelete")
-	public String deleteBoard(@RequestBody int bnum) {
+	public String deleteBoard(int bnum) {
 		System.out.println("게시글 삭제" + bnum);
 		service.deleteBoard(bnum);
 		return "redirect:/boardlist";

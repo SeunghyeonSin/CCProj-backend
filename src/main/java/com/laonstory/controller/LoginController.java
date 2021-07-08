@@ -28,9 +28,9 @@ public class LoginController {
 		System.out.println("로그인 페이지");
 		return "login";
 	}
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/login")
-	public String login(@RequestBody UserVO vo, @RequestBody HttpServletRequest request) {
+	public String login(UserVO vo, HttpServletRequest request) {
 		System.out.println("로그인 시도");
 		UserVO user = service.loginCheck(vo);
 		String ca = "CAST";

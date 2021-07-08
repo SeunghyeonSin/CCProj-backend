@@ -40,9 +40,9 @@ public class UserController {
 		return "userList";
 	}
 	//사용자 리스트 검색
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/userlist")
-	public Model userlistSearch(@RequestBody SearchVO searchvo, @RequestBody Model model) {
+	public Model userlistSearch(SearchVO searchvo, Model model) {
 		System.out.println("게시글 검색");
 		List<UserVO> urList = service.getListSearch(searchvo);
 		for (UserVO userVO : urList) {
@@ -58,18 +58,18 @@ public class UserController {
 		System.out.println("사용자가입 페이지");
 		return "join";
 	}
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/join")
-	public String Join(@RequestBody UserVO vo) {
+	public String Join(UserVO vo) {
 		System.out.println("사용자등록 " + vo);
 		service.insertUser(vo);
 		return null;
 	}
 	
 	//아이디 중복 체크
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/idCheck")
-	public int idCheck(@RequestBody HttpServletRequest req) {
+	public int idCheck(HttpServletRequest req) {
 		System.out.println("아이디 중복 체크");
 		String id = req.getParameter("id");
 		System.out.println(id);
@@ -83,9 +83,9 @@ public class UserController {
 	}
 	
 	//닉네임 중복 체크
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/nickCheck")
-	public int nickCheck(@RequestBody HttpServletRequest req) {
+	public int nickCheck(HttpServletRequest req) {
 		System.out.println("닉네임 중복 체크");
 		String nickname = req.getParameter("nickname");
 		UserVO nickCheck =  service.nickCheck(nickname);
@@ -106,18 +106,18 @@ public class UserController {
 		model.addAttribute("user", user);
 		return "updateUser";
 	}
-	@ResponseBody
+	//@ResponseBody
 	@PostMapping("/userupdate")
-	public String updateUser(@RequestBody UserVO up) {
+	public String updateUser(UserVO up) {
 		System.out.println("사용자 정보 수정" + up);
 		service.updateUser(up);
 		return null;
 	}
 	
 	//사용자 영구 삭제
-	@ResponseBody
+	//@ResponseBody
 	@GetMapping("/userdelete")
-	public String deleteUser(@RequestBody UserVO vo) {
+	public String deleteUser(UserVO vo) {
 		System.out.println("사용자 삭제" + vo);
 		service.deleteUser(vo);
 		return "redirect:/userlist";

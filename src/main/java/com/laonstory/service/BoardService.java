@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.laonstory.mapper.BoardMapper;
 import com.laonstory.vo.BoardVO;
+import com.laonstory.vo.FileVO;
 import com.laonstory.vo.SearchVO;
 
 
@@ -29,6 +30,11 @@ public class BoardService implements BoardMapper{
 	@Override
 	public void insertBoard(BoardVO vo) {
 		mapper.insertBoard(vo);
+	}
+	
+	@Override
+	public int fileInsert(FileVO file) {
+		return mapper.fileInsert(file);
 	}
 
 	@Override

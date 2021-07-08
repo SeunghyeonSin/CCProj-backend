@@ -14,8 +14,13 @@
 	</select>
 	
 	<!-- 게시글 입력 -->
-	<insert id="insertBoard" parameterType="com.laonstory.vo.BoardVO" useGeneratedKeys="true" keyProperty="idx">
+	<insert id="insertBoard" parameterType="com.laonstory.vo.BoardVO" useGeneratedKeys="true" keyProperty="bnum">
 		INSERT INTO board(nickname, title, content, file) VALUES(#{nickname}, #{title}, #{content}, #{file})
+	</insert>
+	
+	<!-- 파일 업로드 -->
+	<insert id="fileInsert" parameterType="com.laonstory.vo.FileVO">
+       INSERT INTO files (fnum, bnumm, fileName, fileOriName, fileUrl) VALUES (#{fnum}, #{bnum}, #{fileName}, #{fileOriName}, #{fileUrl})
 	</insert>
 	
 	<!-- 게시글 수정 -->
@@ -29,7 +34,7 @@
 	</delete>
 	
 	<!-- 게시글 검색 -->
-	<select id="getListSearch" resultType="com.laonstory.vo.SearchVO">
+	<select id="getListSearch" parameterType="com.laonstory.vo.SearchVO" resultType="com.laonstory.vo.BoardVO">
 		SELECT * FROM board WHERE ${searchCondition} like concat('%', #{searchKeyword}, '%')
 	</select>
 
