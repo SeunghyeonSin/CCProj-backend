@@ -11,7 +11,7 @@
 <h1>글 상세</h1>
 <h3>${nickname}님 환영합니다. <a href="logout">Logout</a></h3>
 <hr>
-<form method="post">
+<form action="/boarddetail"method="post">
 <input name="bnum" type="hidden" value=${board.bnum}>
 <table>
 	<tr>

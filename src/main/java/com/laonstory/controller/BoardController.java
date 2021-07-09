@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -78,6 +78,7 @@ public class BoardController {
 		System.out.println("게시글등록 페이지");
 		return "insertBoard";
 	}
+	//파일 업로드 및 게시글 등록
 	@PostMapping("/boardinsert")
 	public String insertBoard(BoardVO vo, @RequestPart MultipartFile files) throws Exception {
 		System.out.println("게시글등록" + vo);
@@ -89,7 +90,7 @@ public class BoardController {
 			String FileNameExtension = FilenameUtils.getExtension(FileName).toLowerCase();
 			File destinationFile;
 			String destinationFileName;
-			String fileUrl = "C:\\Users\\tlstm\\Documents\\workspace-spring-tool-suite-4-4.11.0.RELEASE\\CCProj\\src\\main\\webapp\\WEB-INF\\uploadFiles";
+			String fileUrl = "C:\\Users\\tlstm\\Documents\\workspace-spring-tool-suite-4-4.11.0.RELEASE\\CCProj\\src\\main\\webapp\\WEB-INF\\uploadFiles\\";
 			do { 
 				destinationFileName = RandomStringUtils.randomAlphanumeric(32) + "." + FileNameExtension; 
 				destinationFile = new File(fileUrl + destinationFileName); 
@@ -107,16 +108,16 @@ public class BoardController {
 	}
 	
 	//업로드 한 파일 다운로드
-	@RequestMapping("/fileDown")
-    private void fileDown(@PathVariable int bnum, HttpServletRequest request, HttpServletResponse response) throws Exception{
+	@GetMapping("/fileDown/{bnum}")
+    private void fileDown(@PathVariable int bnum, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         
         request.setCharacterEncoding("UTF-8");
         FileVO fileVO = service.fileDetail(bnum);
+        System.out.println(fileVO);
         
         //파일 업로드된 경로 
         try{
             String fileUrl = fileVO.getFileUrl();
-            fileUrl += "/";
             String savePath = fileUrl;
             String fileName = fileVO.getFileName();
             
