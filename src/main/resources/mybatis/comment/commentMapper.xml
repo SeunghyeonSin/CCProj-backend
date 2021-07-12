@@ -10,30 +10,30 @@
 	
 	<!-- 댓글 불러오기 -->
 	<select id="getComment" resultType="com.laonstory.vo.CommentVO">
-		SELECT * FROM comment WHERE commentid=#{commentid}
+		SELECT * FROM comment WHERE cnum=#{cnum}
 	</select>
 	
-	<!-- 댓글 리스트 불러오기 -->
-	<select id="getListComment" resultType="com.laonstory.vo.CommentVO">
-		SELECT * FROM comment
+	<!-- 게시글 댓글 리스트 불러오기 -->
+	<select id="getListComment" parameterType="int" resultType="com.laonstory.vo.CommentVO">
+		SELECT * FROM comment WHERE bnum=#{bnum}
 	</select>
 	
 	<!-- 댓글 입력 -->
 	<insert id="insertComment" parameterType="com.laonstory.vo.CommentVO">
-		INSERT INTO comment(boardid, writer, content) VALUES(#{boardid}, #{writer}, #{content})
+		INSERT INTO comment(bnum, nickname, content) VALUES(#{bnum}, #{nickname}, #{content})
 	</insert>
 	
 	<!-- 댓글 수정 -->
 	<update id="updateComment" parameterType="com.laonstory.vo.CommentVO">
-		UPDATE comment SET content=#{content} where commentid=#{commentid}
+		UPDATE comment SET content=#{content} where cnum=#{cnum}
 	</update>
 	
 	<!-- 댓글 삭제 -->
-	<delete id="deleteComment" parameterType="com.laonstory.vo.CommentVO">
-		DELETE FROM comment WHERE commentid=#{commentid}
+	<delete id="deleteComment" parameterType="int">
+		DELETE FROM comment WHERE cnum=#{cnum}
 	</delete>
 	
-	<!-- 게시글 검색 
+	<!-- 댓글 검색 
 	<select id="getListSearch" resultType="com.laonstory.vo.SearchVO">
 		SELECT * FROM board WHERE ${searchCondition} like concat('%', #{searchKeyword}, '%')
 	</select> -->

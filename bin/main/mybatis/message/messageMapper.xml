@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.laonstory.mapper.MessageMapper">
+	
+	<!-- 받은 쪽지 불러오기 -->
+	<select id="getMessage" resultType="com.laonstory.vo.MessageVO">
+		SELECT * FROM message WHERE messagenum=#{messagenum}
+	</select>
+	
+	<!-- 받은 쪽지 리스트 불러오기 -->
+	<select id="getListMessage" parameterType="com.laonstory.vo.MessageVO" resultType="com.laonstory.vo.MessageVO">
+		SELECT * FROM message WHERE receinick=#{receinick}
+	</select>
+	
+	<!-- 쪽지 입력 -->
+	<insert id="insertMessage" parameterType="com.laonstory.vo.MessageVO">
+		INSERT INTO message(sendnick, receinick, messagetitle, content) VALUES(#{sendnick}, #{receinick}, #{messagetitle}, #{content})
+	</insert>
+	
+	<!-- 쪽지 수정
+	<update id="updateMessage" parameterType="com.laonstory.vo.MessageVO">
+		UPDATE message SET content=#{content} where commentid=#{commentid}
+	</update> -->
+	
+	<!-- 쪽지 삭제 -->
+	<delete id="deleteMessage" parameterType="int">
+		DELETE FROM message WHERE messagenum=#{messagenum}
+	</delete>
+	
+	<!-- 쪽지 검색 -->
+	<select id="getListSearch" parameterType="com.laonstory.vo.SearchVO" resultType="com.laonstory.vo.MessageVO">
+		SELECT * FROM message WHERE ${searchCondition} like concat('%', #{searchKeyword}, '%')
+	</select>
+
+</mapper>

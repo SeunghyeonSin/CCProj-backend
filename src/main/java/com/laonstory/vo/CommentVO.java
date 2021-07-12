@@ -11,29 +11,29 @@ import lombok.Setter;
 @Setter
 public class CommentVO {
 
-	private int commentid;
-	private int boardid;
-	private String writer;
+	private int cnum;
+	private int bnum;
+	private String nickname;
 	private String content;
 	private Date date;
 	
-	public int getCommentid() {
-		return commentid;
+	public int getCnum() {
+		return cnum;
 	}
-	public void setCommentid(int commentid) {
-		this.commentid = commentid;
+	public void setCnum(int cnum) {
+		this.cnum = cnum;
 	}
-	public int getBoardid() {
-		return boardid;
+	public int getBnum() {
+		return bnum;
 	}
-	public void setBoardid(int boardid) {
-		this.boardid = boardid;
+	public void setBnum(int bnum) {
+		this.bnum = bnum;
 	}
-	public String getWriter() {
-		return writer;
+	public String getNickname() {
+		return nickname;
 	}
-	public void setWriter(String writer) {
-		this.writer = writer;
+	public void setNickname(String writer) {
+		this.nickname = writer;
 	}
 	public String getContent() {
 		return content;
@@ -49,8 +49,8 @@ public class CommentVO {
 	}
 	@Override
 	public String toString() {
-		return "CommentVO [commentid=" + commentid + ", boardid=" + boardid + ", writer=" + writer + ", content="
-				+ content + ", date=" + date + "]";
+		return "CommentVO [cnum=" + cnum + ", bnum=" + bnum + ", nickname=" + nickname + ", content=" + content + ", date="
+				+ date + "]";
 	}
 	
 }

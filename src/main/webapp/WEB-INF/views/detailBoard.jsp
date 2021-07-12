@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ include file="commentS.jsp" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,7 +13,7 @@
 <h1>글 상세</h1>
 <h3>${nickname}님 환영합니다. <a href="logout">Logout</a></h3>
 <hr>
-<form action="/boarddetail"method="post">
+<form action="/boarddetail" method="post">
 <input name="bnum" type="hidden" value=${board.bnum}>
 <table>
 	<tr>
@@ -47,5 +49,23 @@
 <hr>
 <a href="/boardupdate?bnum=${board.bnum}">글수정</a>&nbsp;&nbsp;&nbsp;
 <a href="/boarddelete?bnum=${board.bnum}">글삭제</a>&nbsp;&nbsp;&nbsp;
+<!--  댓글  -->
+    <div class="container">
+        <label for="content">댓글</label>
+        <form name="commentInsertForm">
+            <div class="input-group">
+               <input type="hidden" name="bnum" value="${board.bnum}"/>
+               <input type="text" class="form-control" id="content" name="content" placeholder="내용을 입력하세요.">
+               <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" name="commentInsertBtn">등록</button>
+               </span>
+              </div>
+        </form>
+    </div>
+    
+    <div class="container">
+        <div class="commentList"></div>
+    </div>
+</div>
 </body>
 </html>

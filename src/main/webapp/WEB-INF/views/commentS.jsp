@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
-<script>
-var bno = '${detail.bno}'; //게시글 번호
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+var bnum = '${board.bnum}'; //게시글 번호
  
 $('[name=commentInsertBtn]').click(function(){ //댓글 등록 버튼 클릭시 
     var insertData = $('[name=commentInsertForm]').serialize(); //commentInsertForm의 내용을 가져옴
@@ -16,15 +16,15 @@ function commentList(){
     $.ajax({
         url : '/commentlist',
         type : 'get',
-        data : {'bno':bno},
+        data : {'bnum':bnum},
         success : function(data){
             var a =''; 
             $.each(data, function(key, value){ 
                 a += '<div class="commentArea" style="border-bottom:1px solid darkgray; margin-bottom: 15px;">';
-                a += '<div class="commentInfo'+value.cno+'">'+'댓글번호 : '+value.cno+' / 작성자 : '+value.writer;
-                a += '<a onclick="commentUpdate('+value.cno+',\''+value.content+'\');"> 수정 </a>';
-                a += '<a onclick="commentDelete('+value.cno+');"> 삭제 </a> </div>';
-                a += '<div class="commentContent'+value.cno+'"> <p> 내용 : '+value.content +'</p>';
+                a += '<div class="commentInfo'+value.cnum+'">'+'댓글번호 : '+value.cnum+' / 작성자 : '+value.nickname;
+                a += '<a onclick="commentUpdate('+value.cnum+',\''+value.content+'\');"> 수정 </a>';
+                a += '<a onclick="commentDelete('+value.cnum+');"> 삭제 </a> </div>';
+                a += '<div class="commentContent'+value.cnum+'"> <p> 내용 : '+value.content +'</p>';
                 a += '</div></div>';
             });
             
@@ -49,39 +49,39 @@ function commentInsert(insertData){
 }
  
 //댓글 수정 - 댓글 내용 출력을 input 폼으로 변경 
-function commentUpdate(cno, content){
+function commentUpdate(cnum, content){
     var a ='';
     
     a += '<div class="input-group">';
-    a += '<input type="text" class="form-control" name="content_'+cno+'" value="'+content+'"/>';
-    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cno+');">수정</button> </span>';
+    a += '<input type="text" class="form-control" name="content_'+cnum+'" value="'+content+'"/>';
+    a += '<span class="input-group-btn"><button class="btn btn-default" type="button" onclick="commentUpdateProc('+cnum+');">수정</button> </span>';
     a += '</div>';
     
-    $('.commentContent'+cno).html(a);
+    $('.commentContent'+cnum).html(a);
     
 }
  
 //댓글 수정
-function commentUpdateProc(cno){
-    var updateContent = $('[name=content_'+cno+']').val();
+function commentUpdateProc(cnum){
+    var updateContent = $('[name=content_'+cnum+']').val();
     
     $.ajax({
         url : '/commentupdate',
         type : 'post',
-        data : {'content' : updateContent, 'cno' : cno},
+        data : {'content' : updateContent, 'cnum' : cnum},
         success : function(data){
-            if(data == 1) commentList(bno); //댓글 수정후 목록 출력 
+            if(data == 1) commentList(bnum); //댓글 수정후 목록 출력 
         }
     });
 }
  
 //댓글 삭제 
-function commentDelete(cno){
+function commentDelete(cnum){
     $.ajax({
-        url : '/commentdelete/'+cno,
+        url : '/commentdelete/'+cnum,
         type : 'post',
         success : function(data){
-            if(data == 1) commentList(bno); //댓글 삭제후 목록 출력 
+            if(data == 1) commentList(bnum); //댓글 삭제후 목록 출력 
         }
     });
 }
