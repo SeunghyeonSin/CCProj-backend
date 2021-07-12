@@ -6,22 +6,19 @@
 <html>
 <head>
 <meta contentType='application/json' charset="UTF-8">
-<title>게시판</title>
+<title>쪽지</title>
 </head>
 <body>
-<h1>게시판</h1>
+<h1>쪽지</h1>
 <hr>
 <h3> ${nickname} 님 환영합니다.<a href="logout"> Logout </a></h3>
 <br>
-<a href="/messagelist?receinick=${nickname}">쪽지</a>
-<br>
-<a href="/mypage?memId=${id}">마이페이지</a>
 <form method="post">
 <table>
 	<tr>
 		<td>
 			<select name="searchCondition">
-				<option value="title">제 목
+				<option value="messagetitle">제 목
 				<option value="nickname">작성자
 				<option value="content">내 용
 			</select>
@@ -32,15 +29,13 @@
 <br>
 <table>
 	<tr>
-		<th bgcolor="orange">번호</th>
 		<th bgcolor="orange">제목</th>
 		<th bgcolor="orange">작성자</th>
 		<th bgcolor="orange">등록일</th>
 		<th bgcolor="orange">조회수</th>
 	</tr>
-	<c:forEach items="${boardlist}" var="board">
+	<c:forEach items="${userboard}" var="board">
 		<tr>
-			<td> ${board.bnum} </td>
 			<td> <a href="/boarddetail?bnum=${board.bnum}">${board.title}</a></td>
 			<td> ${board.nickname} </td>
 			<td> ${board.date} </td>
@@ -49,7 +44,9 @@
 	</c:forEach>
 </table>
 <br>
-<a href="/boardinsert">새 글 등록</a>
+<a href="/boardlist">게시글 목록</a>
+<br>
+<a href="/mypage?memId=${id}">마이페이지</a>
 <hr>
 </body>
 </html>

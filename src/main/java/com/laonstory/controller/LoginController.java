@@ -37,6 +37,7 @@ public class LoginController {
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("nickname", user.getMemNickname());
+			session.setAttribute("id", user.getMemId());
 			String id = user.getMemRole();
 			System.out.println(id);
 			if (id.equals(ca)) {

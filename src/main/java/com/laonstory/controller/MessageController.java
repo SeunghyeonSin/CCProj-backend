@@ -31,12 +31,22 @@ public class MessageController {
 	@GetMapping("/messagelist")
 	public String listMessage(MessageVO vo, Model model) {
 		List<MessageVO> mList = service.getListMessage(vo);
-		System.out.println(vo);
 		for (MessageVO messagevo : mList) {
 			System.out.println("쪽지 리스트 " + messagevo);
 		}
 		model.addAttribute("messagelist", mList);
 		return "messageList";
+	}
+	
+	//보낸 쪽지 리스트
+	@GetMapping("/usermessagelist")
+	public String listUserMessage(MessageVO vo, Model model) {
+		List<MessageVO> mList = service.getListUserMessage(vo);
+		for (MessageVO messagevo : mList) {
+			System.out.println("보낸 쪽지 리스트" + messagevo);
+		}
+		model.addAttribute("usermessage", mList);
+		return "userMessage";
 	}
 	
 	//쪽지 검색
@@ -62,7 +72,7 @@ public class MessageController {
 	public String addMessage(MessageVO vo) {
 		System.out.println("쪽지보냄 " + vo);
 		service.insertMessage(vo);
-		return "redirect://messagelist?receinick=${nickname}";
+		return "redirect:/messagelist";
 	}
 	
 	//받은 쪽지 삭제
@@ -70,6 +80,6 @@ public class MessageController {
 	public String deleteMessage(int messagenum) {
 		System.out.println("쪽지 삭제" + messagenum);
 		service.deleteMessage(messagenum);
-		return "redirect://messagelist?receinick=${nickname}";
+		return "redirect:/messagelist";
 	}
 }

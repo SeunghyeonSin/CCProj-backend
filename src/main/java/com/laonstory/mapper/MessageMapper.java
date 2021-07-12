@@ -12,6 +12,7 @@ public interface MessageMapper {
 
 	public MessageVO getMessage(MessageVO vo);
 	public List<MessageVO> getListMessage(MessageVO vo);
+	public List<MessageVO> getListUserMessage(MessageVO vo);
 	public void insertMessage(MessageVO vo);
 	public void deleteMessage(int messagenum);
 	public List<MessageVO> getListSearch(SearchVO vo);

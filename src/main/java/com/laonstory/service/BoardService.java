@@ -31,6 +31,11 @@ public class BoardService implements BoardMapper{
 	public List<BoardVO> getListBoard() {
 		return mapper.getListBoard();
 	}
+	
+	@Override
+	public List<BoardVO> getListUserBoard(BoardVO vo) {
+		return mapper.getListUserBoard(vo);
+	}
 
 	@Override
 	public void insertBoard(BoardVO vo) {

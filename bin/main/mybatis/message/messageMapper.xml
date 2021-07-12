@@ -13,6 +13,11 @@
 		SELECT * FROM message WHERE receinick=#{receinick}
 	</select>
 	
+	<!--보낸 쪽지 리스트 불러오기 -->
+	<select id="getListUserMessage" parameterType="com.laonstory.vo.MessageVO" resultType="com.laonstory.vo.MessageVO">
+		SELECT * FROM message WHERE sendnick=#{sendnick}
+	</select>
+	
 	<!-- 쪽지 입력 -->
 	<insert id="insertMessage" parameterType="com.laonstory.vo.MessageVO">
 		INSERT INTO message(sendnick, receinick, messagetitle, content) VALUES(#{sendnick}, #{receinick}, #{messagetitle}, #{content})

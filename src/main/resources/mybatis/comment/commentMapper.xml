@@ -4,8 +4,8 @@
 <mapper namespace="com.laonstory.mapper.CommentMapper">
 	
 	<!-- 댓글 개수 확인 -->
-	<select id="countComment" resultType="com.laonstory.vo.CommentVO">
-		SELECT COUNT(*) FROM comment
+	<select id="countComment" parameterType="int" resultType="com.laonstory.vo.CommentVO">
+		SELECT COUNT(*) FROM comment WHERE bnum=#{bnum}
 	</select>
 	
 	<!-- 댓글 불러오기 -->
@@ -16,6 +16,11 @@
 	<!-- 게시글 댓글 리스트 불러오기 -->
 	<select id="getListComment" parameterType="int" resultType="com.laonstory.vo.CommentVO">
 		SELECT * FROM comment WHERE bnum=#{bnum}
+	</select>
+	
+	<!-- 사용자 댓글 리스트 불러오기 -->
+	<select id="getListUserComment" parameterType="com.laonstory.vo.CommentVO" resultType="com.laonstory.vo.CommentVO">
+		SELECT * FROM comment WHERE nickname=#{nickname}
 	</select>
 	
 	<!-- 댓글 입력 -->

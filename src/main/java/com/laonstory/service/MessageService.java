@@ -24,6 +24,11 @@ public class MessageService implements MessageMapper{
 	public List<MessageVO> getListMessage(MessageVO vo) {
 		return mapper.getListMessage(vo);
 	}
+	
+	@Override
+	public List<MessageVO> getListUserMessage(MessageVO vo) {
+		return mapper.getListUserMessage(vo);
+	}
 
 	@Override
 	public void insertMessage(MessageVO vo) {

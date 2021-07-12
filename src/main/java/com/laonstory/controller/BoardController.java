@@ -59,6 +59,17 @@ public class BoardController {
 		return "detailBoard";
 	}
 	
+	//내가 작성한 게시글 리스트
+	@GetMapping("/userboardlist")
+	public String boardUserList(BoardVO vo, Model model) {
+		List<BoardVO> bList = service.getListUserBoard(vo);
+		for (BoardVO boardvo : bList) {
+			System.out.println("게시글 리스트" + boardvo);
+		}
+		model.addAttribute("userboard", bList);
+		return "userBoard";
+	}
+	
 	//게시글 검색
 	//@ResponseBody
 	@PostMapping("/boardlist")

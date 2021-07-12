@@ -14,6 +14,7 @@ public interface BoardMapper {
 	public BoardVO getBoard(BoardVO vo);
 	public FileVO fileDetail(int bnum);
 	public List<BoardVO> getListBoard();
+	public List<BoardVO> getListUserBoard(BoardVO vo);
 	public void insertBoard(BoardVO vo);
 	public int fileInsert(FileVO file);
 	public void updateBoard(BoardVO vo);

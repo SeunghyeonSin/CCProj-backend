@@ -97,6 +97,13 @@ public class UserController {
 		return result;
 	}
 	
+	//마이페이지
+	@GetMapping("/mypage")
+	public String mylist() {
+		System.out.println("마이 페이지 출력");
+		return "myPage";
+	}
+	
 	//사용자 정보 수정
 	@GetMapping("/userupdate")
 	public String updateView(UserVO vo, Model model) {
@@ -111,7 +118,7 @@ public class UserController {
 	public String updateUser(UserVO up) {
 		System.out.println("사용자 정보 수정" + up);
 		service.updateUser(up);
-		return null;
+		return "redirect:/mypage";
 	}
 	
 	//사용자 영구 삭제
@@ -120,6 +127,6 @@ public class UserController {
 	public String deleteUser(UserVO vo) {
 		System.out.println("사용자 삭제" + vo);
 		service.deleteUser(vo);
-		return "redirect:/userlist";
+		return "redirect:/";
 	}
 }
