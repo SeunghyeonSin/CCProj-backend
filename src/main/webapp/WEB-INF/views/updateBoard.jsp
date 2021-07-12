@@ -26,7 +26,7 @@
 	</tr>
 	<tr>
 		<td bgcolor="orange">이미지</td>
-		<td><input name="file" type="file" value="${files.file}"/></td>
+		<td><input name="fileName" type="file" value="${files.fileName}"/></td>
 	</tr>
 	<tr>
 		<td bgcolor="orange">내용</td>
