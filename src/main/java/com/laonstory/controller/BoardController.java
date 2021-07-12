@@ -191,11 +191,14 @@ public class BoardController {
 	
 	//게시글 수정	
 	@GetMapping("/boardupdate")
-	public String updateView(BoardVO vo, Model model) {
+	public String updateView(int bnum, BoardVO vo, Model model) {
 		System.out.println("게시글수정 페이지");
 		BoardVO board = service.getBoard(vo);
+		FileVO filevo = service.fileDetail(bnum);
 		System.out.println("게시글" + board);
+		System.out.println("파일" + filevo);
 		model.addAttribute("board", board);
+		model.addAttribute("files", filevo);
 		return "updateBoard";
 	}
 	//@ResponseBody
