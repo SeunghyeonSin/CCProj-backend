@@ -29,9 +29,9 @@ public class CommentController {
 	//게시글 댓글 리스트
 	@PostMapping("/commentList")
     @ResponseBody
-    public List<CommentVO> CommentServiceList(@RequestBody int boardid, @RequestBody Model model) {
-		System.out.println(boardid);
-    	List<CommentVO> commentList = service.getListComment(boardid);
+    public List<CommentVO> CommentServiceList(@RequestBody CommentVO vo) {
+		System.out.println(vo);
+    	List<CommentVO> commentList = service.getListComment(vo.getBoardid());
     	System.out.println(commentList);
         return commentList;
     }

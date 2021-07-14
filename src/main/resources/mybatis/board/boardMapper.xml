@@ -29,7 +29,7 @@
 	
 	<!-- 게시글 입력 -->
 	<insert id="insertBoard" parameterType="com.laonstory.vo.BoardVO" useGeneratedKeys="true" keyProperty="bnum">
-		INSERT INTO board VALUES(0, #{btype}, #{writer}, #{title}, #{content}, #{anonymous})
+		INSERT INTO board VALUES(0, #{btype}, #{memId}, #{writer}, #{title}, #{content}, #{anonymous})
 	</insert>
 	
 	<!-- 파일 업로드 -->
