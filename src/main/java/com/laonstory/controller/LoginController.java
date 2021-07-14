@@ -5,49 +5,51 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.laonstory.service.UserService;
 import com.laonstory.vo.UserVO;
 
-
-@Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
 public class LoginController {
 
 	@Autowired
 	private UserService service;
 
+	/*
 	@GetMapping("/login")
 	public String loginView(UserVO vo) {
 		System.out.println("로그인 페이지");
 		return "login";
-	}
-	//@ResponseBody
+	}*/
+	
+	@ResponseBody
 	@PostMapping("/login")
-	public String login(UserVO vo, HttpServletRequest request) {
+	public UserVO login(@RequestBody UserVO vo, HttpServletRequest request) {
 		System.out.println("로그인 시도");
 		UserVO user = service.loginCheck(vo);
-		String ca = "CAST";
+		String ca = "admin01";
 		if (user != null) {
 			HttpSession session = request.getSession();
 			session.setAttribute("nickname", user.getMemNickname());
 			session.setAttribute("id", user.getMemId());
-			String id = user.getMemRole();
+			String id = user.getMemId();
 			System.out.println(id);
 			if (id.equals(ca)) {
 				System.out.println("유저리스트");
-				return "redirect:/userlist";
+				return null;
 			}
-			return "redirect:/boardlist";
+			return user;
 		} else{
 			System.out.println("login error");
-			return "login";
+			return null;
 		}
 	}
 	

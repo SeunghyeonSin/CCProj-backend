@@ -15,8 +15,8 @@ public class CommentService implements CommentMapper{
 	private CommentMapper mapper;
 
 	@Override
-	public int countComment(int bnum) {
-		return mapper.countComment(bnum);
+	public int countComment(int boardid) {
+		return mapper.countComment(boardid);
 	}
 	
 	@Override
@@ -25,8 +25,8 @@ public class CommentService implements CommentMapper{
 	}
 
 	@Override
-	public List<CommentVO> getListComment(int bnum) {
-		return mapper.getListComment(bnum);
+	public List<CommentVO> getListComment(int boardid) {
+		return mapper.getListComment(boardid);
 	}
 
 	@Override
@@ -47,5 +47,10 @@ public class CommentService implements CommentMapper{
 	@Override
 	public int deleteComment(int commentid) {
 		return mapper.deleteComment(commentid);
+	}
+
+	@Override
+	public int boardDeleteComment(int boardid) {
+		return mapper.boardDeleteComment(boardid);
 	}
 }

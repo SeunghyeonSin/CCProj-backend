@@ -11,29 +11,37 @@ import lombok.Setter;
 @Setter
 public class CommentVO {
 
-	private int cnum;
-	private int bnum;
-	private String nickname;
+	private int commentid;
+	private int boardid;
+	private String memId;
+	private String writer;
 	private String content;
 	private Date date;
+	private int anonymous;
 	
-	public int getCnum() {
-		return cnum;
+	public int getCommentid() {
+		return commentid;
 	}
-	public void setCnum(int cnum) {
-		this.cnum = cnum;
+	public void setCommentid(int commentid) {
+		this.commentid = commentid;
 	}
-	public int getBnum() {
-		return bnum;
+	public int getBoardid() {
+		return boardid;
 	}
-	public void setBnum(int bnum) {
-		this.bnum = bnum;
+	public void setBoardid(int boardid) {
+		this.boardid = boardid;
 	}
-	public String getNickname() {
-		return nickname;
+	public String getMemId() {
+		return memId;
 	}
-	public void setNickname(String writer) {
-		this.nickname = writer;
+	public void setMemId(String memId) {
+		this.memId = memId;
+	}
+	public String getWriter() {
+		return writer;
+	}
+	public void setWriter(String writer) {
+		this.writer = writer;
 	}
 	public String getContent() {
 		return content;
@@ -47,10 +55,16 @@ public class CommentVO {
 	public void setDate(Date date) {
 		this.date = date;
 	}
+	public int getAnonymous() {
+		return anonymous;
+	}
+	public void setAnonymous(int anonymous) {
+		this.anonymous = anonymous;
+	}
 	@Override
 	public String toString() {
-		return "CommentVO [cnum=" + cnum + ", bnum=" + bnum + ", nickname=" + nickname + ", content=" + content + ", date="
-				+ date + "]";
+		return "CommentVO [commentid=" + commentid + ", boardid=" + boardid + ", memId=" + memId + ", writer=" + writer
+				+ ", content=" + content + ", date=" + date + ", anonymous=" + anonymous + "]";
 	}
 	
 }

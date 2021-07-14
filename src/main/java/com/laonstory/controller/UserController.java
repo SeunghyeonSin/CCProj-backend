@@ -5,18 +5,20 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.laonstory.service.UserService;
 import com.laonstory.vo.SearchVO;
 import com.laonstory.vo.UserVO;
 
-@Controller
+@CrossOrigin(origins = "*", maxAge = 3600)
+@RestController
 public class UserController {
 
 	@Autowired
@@ -53,14 +55,14 @@ public class UserController {
 	}
 	
 	//회원가입
-	@GetMapping("/join")
+	/*@GetMapping("/join")
 	public String insertView() {
 		System.out.println("사용자가입 페이지");
 		return "join";
-	}
-	//@ResponseBody
+	}*/
+	@ResponseBody
 	@PostMapping("/join")
-	public String Join(UserVO vo) {
+	public String Join(@RequestBody UserVO vo) {
 		System.out.println("사용자등록 " + vo);
 		service.insertUser(vo);
 		return null;
@@ -106,7 +108,7 @@ public class UserController {
 	
 	//사용자 정보 수정
 	@GetMapping("/userupdate")
-	public String updateView(UserVO vo, Model model) {
+	public String updateView(@RequestBody UserVO vo, @RequestBody Model model) {
 		System.out.println("사용자 정보 수정 페이지");
 		UserVO user = service.getUser(vo);
 		System.out.println("사용자 " + user);
@@ -115,16 +117,16 @@ public class UserController {
 	}
 	//@ResponseBody
 	@PostMapping("/userupdate")
-	public String updateUser(UserVO up) {
+	public String updateUser(@RequestBody UserVO up) {
 		System.out.println("사용자 정보 수정" + up);
 		service.updateUser(up);
 		return "redirect:/mypage";
 	}
 	
 	//사용자 영구 삭제
-	//@ResponseBody
+	@ResponseBody
 	@GetMapping("/userdelete")
-	public String deleteUser(UserVO vo) {
+	public String deleteUser(@RequestBody UserVO vo) {
 		System.out.println("사용자 삭제" + vo);
 		service.deleteUser(vo);
 		return "redirect:/";

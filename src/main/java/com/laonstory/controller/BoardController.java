@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,41 +15,48 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.laonstory.service.BoardService;
+import com.laonstory.service.CommentService;
 import com.laonstory.vo.BoardVO;
+import com.laonstory.vo.CommentVO;
 import com.laonstory.vo.FileVO;
 import com.laonstory.vo.SearchVO;
 
-@Controller
+@CrossOrigin(origins= "*",maxAge  = 3600)
+@RestController
 public class BoardController {
 
 	@Autowired
 	private BoardService service;
 	
+	@Autowired
+	private CommentService cservice;
+	
 	//게시글 리스트 출력
-	@GetMapping("/boardlist")
-	public String boardlistView(BoardVO vo, Model model) {
-		List<BoardVO> bList = service.getListBoard();
-		for (BoardVO boardVO : bList) {
-			System.out.println("게시글 리스트 " + boardVO);
-		}
-		model.addAttribute("boardlist", bList);
-		return "boardList";
+	@ResponseBody
+	@PostMapping("/loadingBoard")
+	public List<BoardVO> boardlistView(@RequestBody BoardVO vo) {
+		System.out.println("게시글 리스트 출력");
+		System.out.println(vo.toString());
+		List<BoardVO> boardlist = service.getListBoard(vo.getBtype());
+		return boardlist;
 	}
 	
 	//게시글 상세 화면
-	@GetMapping("/boarddetail")
-	public String boardDetail(int bnum, BoardVO vo, Model model) {
+	@ResponseBody
+	@GetMapping("/detailBoard")
+	public BoardVO boardDetail(@RequestBody int bnum, @RequestBody BoardVO vo, @RequestBody Model model) {
 		System.out.println("사용자 정보 수정 페이지");
 		BoardVO board = service.getBoard(vo);
 		FileVO filevo = service.fileDetail(bnum);
@@ -56,12 +64,12 @@ public class BoardController {
 		System.out.println("파일" + filevo);
 		model.addAttribute("board", board);
 		model.addAttribute("files", filevo);
-		return "detailBoard";
+		return board;
 	}
 	
 	//내가 작성한 게시글 리스트
-	@GetMapping("/userboardlist")
-	public String boardUserList(BoardVO vo, Model model) {
+	@PostMapping("/userboardlist")
+	public String boardUserList(@RequestBody BoardVO vo, @RequestBody Model model) {
 		List<BoardVO> bList = service.getListUserBoard(vo);
 		for (BoardVO boardvo : bList) {
 			System.out.println("게시글 리스트" + boardvo);
@@ -70,10 +78,18 @@ public class BoardController {
 		return "userBoard";
 	}
 	
+	//많이 클릭한 게시글
+	@PostMapping("/cntBoard")
+	public void recommandBoard(@RequestBody BoardVO vo) {
+		BoardVO boardvo = new BoardVO();
+		boardvo = service.getBoard(vo);
+		vo.setCnt(boardvo.getCnt()+1);
+		service.cntBoard(vo);
+	}
 	//게시글 검색
 	//@ResponseBody
 	@PostMapping("/boardlist")
-	public String boardlistSearch(SearchVO searchvo, Model model) {
+	public String boardlistSearch(@RequestBody SearchVO searchvo, @RequestBody Model model) {
 		System.out.println("게시글 검색");
 		List<BoardVO> bList = service.getListSearch(searchvo);
 		for (BoardVO boardVO : bList) {
@@ -84,14 +100,14 @@ public class BoardController {
 	}
 	
 	//게시글 등록
-	@GetMapping("/boardinsert")
+	/*@GetMapping("/boardinsert")
 	public String insertView() {
 		System.out.println("게시글등록 페이지");
 		return "insertBoard";
-	}
+	}*/
 	//파일 업로드 및 게시글 등록
-	@PostMapping("/boardinsert")
-	public String insertBoard(BoardVO vo, @RequestPart MultipartFile files) throws Exception {
+	@PostMapping("/insertBoard")
+	public String insertBoard(@RequestBody BoardVO vo, @RequestPart MultipartFile files) throws Exception {
 		System.out.println("게시글등록" + vo);
 		FileVO file = new FileVO();
 		if(files.isEmpty()) {
@@ -115,12 +131,12 @@ public class BoardController {
 			file.setFileUrl(fileUrl);
 			service.fileInsert(file);
 		}
-		return "redirect:/boardlist";
+		return null;
 	}
 	
 	//업로드 한 파일 다운로드
 	@GetMapping("/fileDown/{bnum}")
-    private void fileDown(@PathVariable int bnum, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    private void fileDown(@PathVariable @RequestBody int bnum, @RequestBody HttpServletRequest request, @RequestBody HttpServletResponse response) throws UnsupportedEncodingException {
         
         request.setCharacterEncoding("UTF-8");
         FileVO fileVO = service.fileDetail(bnum);
@@ -190,7 +206,7 @@ public class BoardController {
     }
 	
 	//게시글 수정	
-	@GetMapping("/boardupdate")
+	/*@GetMapping("/boardupdate")
 	public String updateView(int bnum, BoardVO vo, Model model) {
 		System.out.println("게시글수정 페이지");
 		BoardVO board = service.getBoard(vo);
@@ -200,21 +216,25 @@ public class BoardController {
 		model.addAttribute("board", board);
 		model.addAttribute("files", filevo);
 		return "updateBoard";
-	}
+	}*/
 	//@ResponseBody
-	@PostMapping("/boardupdate")
-	public String updateBoard(BoardVO up) {
-		System.out.println("게시글 수정" + up);
-		service.updateBoard(up);
-		return "redirect:/boardlist";
+	@PostMapping("/updateBoard")
+	public void updateBoard(@RequestBody BoardVO vo) {
+		System.out.println("게시글 수정" + vo);
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		vo.setDate(timestamp);
+		service.updateBoard(vo);
 	}
 	
 	//게시글 삭제
 	//@ResponseBody
-	@GetMapping("/boarddelete")
-	public String deleteBoard(int bnum) {
+	@PostMapping("/deleteBoard")
+	public String deleteBoard(@RequestBody int bnum) {
 		System.out.println("게시글 삭제" + bnum);
+		CommentVO commentvo = new CommentVO();
+		commentvo.setBoardid(bnum);
+		cservice.boardDeleteComment(bnum);
 		service.deleteBoard(bnum);
-		return "redirect:/boardlist";
+		return null;
 	}
 }

@@ -15,17 +15,21 @@
 	
 	<!-- 게시글 리스트 불러오기 -->
 	<select id="getListBoard" resultType="com.laonstory.vo.BoardVO">
-		SELECT * FROM board
+		SELECT * FROM board WHERE btype=#{btype} ORDER BY bnum DESC
 	</select>
 	
 	<!-- 사용자 게시글 리스트 불러오기 -->
 	<select id="getListUserBoard" parameterType="com.laonstory.vo.BoardVO" resultType="com.laonstory.vo.BoardVO">
-		SELECT * FROM board WHERE nickname=#{nickname}
+		SELECT * FROM board WHERE writer=#{writer}
 	</select>
+	
+	<update id="cntBoard" parameterType="com.laonstory.vo.BoardVO">
+		UPDATE board SET cnt=#{cnt} WHERE bnum=#{bnum}
+	</update>
 	
 	<!-- 게시글 입력 -->
 	<insert id="insertBoard" parameterType="com.laonstory.vo.BoardVO" useGeneratedKeys="true" keyProperty="bnum">
-		INSERT INTO board(nickname, title, content) VALUES(#{nickname}, #{title}, #{content})
+		INSERT INTO board VALUES(0, #{btype}, #{writer}, #{title}, #{content}, #{anonymous})
 	</insert>
 	
 	<!-- 파일 업로드 -->

@@ -28,13 +28,18 @@ public class BoardService implements BoardMapper{
 	}
 
 	@Override
-	public List<BoardVO> getListBoard() {
-		return mapper.getListBoard();
+	public List<BoardVO> getListBoard(String btype) {
+		return mapper.getListBoard(btype);
 	}
 	
 	@Override
 	public List<BoardVO> getListUserBoard(BoardVO vo) {
 		return mapper.getListUserBoard(vo);
+	}
+	
+	@Override
+	public void cntBoard(BoardVO vo) {
+		mapper.cntBoard(vo);
 	}
 
 	@Override

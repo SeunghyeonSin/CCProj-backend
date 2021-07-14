@@ -9,12 +9,13 @@ import com.laonstory.vo.CommentVO;
 @Mapper
 public interface CommentMapper {
 
-	public int countComment(int bnum);
+	public int countComment(int boardid);
 	public CommentVO getComment(CommentVO vo);
-	public List<CommentVO> getListComment(int bnum);
+	public List<CommentVO> getListComment(int boardid);
 	public List<CommentVO> getListUserComment(CommentVO vo);
 	public String insertComment(CommentVO vo);
 	public String updateComment(CommentVO vo);
-	public int deleteComment(int cnum);
+	public int deleteComment(int commentid);
+	public int boardDeleteComment(int boardid);
 	//public List<CommentVO> getListSearch(SearchVO vo);
 }
