@@ -8,6 +8,11 @@
 		SELECT * FROM board WHERE bnum=#{bnum}
 	</select>
 	
+	<!-- 좋아요 누른 게시글 불러오기 -->
+	<select id="selectBoard" parameterType="int" resultType="com.laonstory.vo.BoardVO">
+		SELECT * FROM board WHERE bnum=#{bnum}
+	</select>
+	
 	<!-- 파일 불러오기 -->
 	<select id="fileDetail" parameterType="int" resultType="com.laonstory.vo.FileVO">
 		SELECT * FROM files WHERE bnum=#{bnum}
@@ -23,6 +28,7 @@
 		SELECT * FROM board WHERE writer=#{writer}
 	</select>
 	
+	<!-- 게시글 공감 수 증가 -->
 	<update id="cntBoard" parameterType="com.laonstory.vo.BoardVO">
 		UPDATE board SET cnt=#{cnt} WHERE bnum=#{bnum}
 	</update>

@@ -23,6 +23,11 @@ public class BoardService implements BoardMapper{
 	}
 	
 	@Override
+	public BoardVO selectBoard(int bnum) {
+		return mapper.selectBoard(bnum);
+	}
+
+	@Override
 	public FileVO fileDetail(int bnum) {
 		return mapper.fileDetail(bnum);
 	}

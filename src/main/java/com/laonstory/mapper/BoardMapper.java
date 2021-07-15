@@ -12,6 +12,7 @@ import com.laonstory.vo.SearchVO;
 public interface BoardMapper {
 
 	public BoardVO getBoard(BoardVO vo);
+	public BoardVO selectBoard(int bnum);
 	public FileVO fileDetail(int bnum);
 	public List<BoardVO> getListBoard(String btype);
 	public List<BoardVO> getListUserBoard(BoardVO vo);
