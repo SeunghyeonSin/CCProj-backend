@@ -45,6 +45,9 @@
 		</td>
 	</tr>
 </table>
+</form action="/updateLiketo" method="post">
+	<input class="btn btn-default" type="button" value="좋아요">
+<form>
 </form>
 <hr>
 <a href="/boardupdate?bnum=${board.bnum}">글수정</a>&nbsp;&nbsp;&nbsp;

@@ -8,13 +8,18 @@
 		SELECT * FROM liketo WHERE boardid=#{boardid} AND memId=#{memId} AND like_check=#{like_check}
 	</select>
 	
-	<!-- 좋아요 누르는 기능 -->
+	<!-- 게시글 누를시 생성 기능 -->
 	<insert id="insertLiketo" parameterType="com.laonstory.mapper.LiketoMapper">
-		INSERT INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 1)
+		INSERT INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 0)
 	</insert>
 	
+	<!-- 좋아요 누른 기능 -->
+	<update id="updateLiketoagree" parameterType="com.laonstory.mapper.LiketoMapper">
+		UPDATE INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 1)
+	</update>
+	
 	<!-- 좋아요 취소 기능 -->
-	<update id="updateLiketo" parameterType="com.laonstory.mapper.LiketoMapper">
+	<update id="updateLiketocancel" parameterType="com.laonstory.mapper.LiketoMapper">
 		UPDATE INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 0)
 	</update>
 

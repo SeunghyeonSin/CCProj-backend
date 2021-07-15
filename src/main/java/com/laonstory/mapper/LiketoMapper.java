@@ -11,5 +11,6 @@ public interface LiketoMapper {
 
 	public LiketoVO selectLiketo(LiketoVO vo);
 	public void insertLiketo(LiketoVO vo);
-	public void updateLiketo(LiketoVO vo);
+	public void updateLiketoagree(LiketoVO vo);
+	public void updateLiketocancel(LiketoVO vo);
 }

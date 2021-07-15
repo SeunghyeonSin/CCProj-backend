@@ -23,7 +23,12 @@ public class LiketoService implements LiketoMapper{
 	}
 
 	@Override
-	public void updateLiketo(LiketoVO vo) {
-		mapper.updateLiketo(vo);
+	public void updateLiketoagree(LiketoVO vo) {
+		mapper.updateLiketoagree(vo);
+	}
+
+	@Override
+	public void updateLiketocancel(LiketoVO vo) {
+		mapper.updateLiketocancel(vo);
 	}
 }
