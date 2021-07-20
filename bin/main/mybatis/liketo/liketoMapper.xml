@@ -5,22 +5,17 @@
 	
 	<!-- 좋아요 눌렀는지 확인 기능 -->
 	<select id="selectLiketo" parameterType="com.laonstory.mapper.LiketoMapper" resultType="com.laonstory.mapper.LiketoMapper">
-		SELECT * FROM liketo WHERE boardid=#{boardid} AND memId=#{memId} AND like_check=#{like_check}
+		SELECT * FROM liketo WHERE boardid=#{boardid} AND memId=#{memId}
 	</select>
 	
-	<!-- 게시글 누를시 생성 기능 -->
+	<!-- 좋아요 기능 -->
 	<insert id="insertLiketo" parameterType="com.laonstory.mapper.LiketoMapper">
-		INSERT INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 0)
+		INSERT INTO liketo VALUES(#{boardid}, #{memId})
 	</insert>
 	
-	<!-- 좋아요 누른 기능 -->
-	<update id="updateLiketoagree" parameterType="com.laonstory.mapper.LiketoMapper">
-		UPDATE INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 1)
-	</update>
-	
 	<!-- 좋아요 취소 기능 -->
-	<update id="updateLiketocancel" parameterType="com.laonstory.mapper.LiketoMapper">
-		UPDATE INTO liketo VALUES(#{liketonum}, #{boardid}, #{memId}, 0)
-	</update>
+	<delete id="deleteLiketo" parameterType="com.laonstory.mapper.LiketoMapper">
+		DELETE FROM liketo WHERE boardid=#{boardid} AND memId=#{memId}
+	</delete>
 
 </mapper>

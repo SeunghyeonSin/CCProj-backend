@@ -19,10 +19,11 @@ public class LiketoController {
 	@Autowired
 	private BoardService bservice;
 	
-	//게시글 누를 때 생성
+	//좋아요 기능
 	@PostMapping("/insertLiketo")
 	public void InserLiketo(LiketoVO vo) {
 		service.insertLiketo(vo);
+		int boardid = vo.getBoardid();
 		System.out.println("생성" + vo);
 	}
 	
@@ -30,39 +31,13 @@ public class LiketoController {
 	@PostMapping("/seletLiketo")
 	public LiketoVO SelectLiketo(LiketoVO vo) {
 		LiketoVO liketovo = service.selectLiketo(vo);
-		boolean check = liketovo.isLike_check();
-		if (check == false) {
-			System.out.println("좋아요 안누름");
-			return liketovo;
-		}
-		else {
-			System.out.println("좋아요 누름");
-			return liketovo;
-		}
+		System.out.println(vo);
+		return liketovo;
 	}
 	
-	//좋아요 기능
-	@PostMapping("/updateLiketo")
-	public void UpdateLiketo(LiketoVO vo) {
-		LiketoVO liketovo = service.selectLiketo(vo);
-		boolean check = liketovo.isLike_check();
-		if (check == false) {
-			System.out.println("좋아요 안누름");
-			BoardVO boardvo = bservice.selectBoard(liketovo.getBoardid());
-			boardvo.setCnt(boardvo.getCnt() + 1);
-			bservice.cntBoard(boardvo);
-			service.updateLiketoagree(liketovo);
-			System.out.println("좋아요취소" + liketovo);
-			System.out.println("공감 수" + boardvo.getCnt());
-		}
-		else {
-			System.out.println("좋아요 누름");
-			BoardVO boardvo = bservice.selectBoard(liketovo.getBoardid());
-			boardvo.setCnt(boardvo.getCnt() - 1);
-			bservice.cntBoard(boardvo);
-			service.updateLiketocancel(liketovo);
-			System.out.println("좋아요취소" + liketovo);
-			System.out.println("공감 수" + boardvo.getCnt());
-		}
+	//좋아요 취소 기능
+	public void DeleteLiketo(LiketoVO vo) {
+		service.deleteLiketo(vo);
+		System.out.println("삭제" + vo);
 	}
 }

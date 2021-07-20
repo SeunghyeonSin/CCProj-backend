@@ -68,7 +68,7 @@ public class BoardController {
 	}
 	
 	//내가 작성한 게시글 리스트
-	@PostMapping("/userboardlist")
+	@PostMapping("/userloadingBoard")
 	public String boardUserList(@RequestBody BoardVO vo, @RequestBody Model model) {
 		List<BoardVO> bList = service.getListUserBoard(vo);
 		for (BoardVO boardvo : bList) {
@@ -87,7 +87,6 @@ public class BoardController {
 		service.cntBoard(vo);
 	}
 	//게시글 검색
-	//@ResponseBody
 	@PostMapping("/boardlist")
 	public String boardlistSearch(@RequestBody SearchVO searchvo, @RequestBody Model model) {
 		System.out.println("게시글 검색");
@@ -99,12 +98,6 @@ public class BoardController {
 		return "boardList";
 	}
 	
-	//게시글 등록
-	/*@GetMapping("/boardinsert")
-	public String insertView() {
-		System.out.println("게시글등록 페이지");
-		return "insertBoard";
-	}*/
 	//파일 업로드 및 게시글 등록
 	@PostMapping("/insertBoard")
 	public String insertBoard(@RequestBody BoardVO vo, @RequestPart MultipartFile files) throws Exception {
@@ -206,18 +199,6 @@ public class BoardController {
     }
 	
 	//게시글 수정	
-	/*@GetMapping("/boardupdate")
-	public String updateView(int bnum, BoardVO vo, Model model) {
-		System.out.println("게시글수정 페이지");
-		BoardVO board = service.getBoard(vo);
-		FileVO filevo = service.fileDetail(bnum);
-		System.out.println("게시글" + board);
-		System.out.println("파일" + filevo);
-		model.addAttribute("board", board);
-		model.addAttribute("files", filevo);
-		return "updateBoard";
-	}*/
-	//@ResponseBody
 	@PostMapping("/updateBoard")
 	public void updateBoard(@RequestBody BoardVO vo) {
 		System.out.println("게시글 수정" + vo);
@@ -227,7 +208,6 @@ public class BoardController {
 	}
 	
 	//게시글 삭제
-	//@ResponseBody
 	@PostMapping("/deleteBoard")
 	public String deleteBoard(@RequestBody int bnum) {
 		System.out.println("게시글 삭제" + bnum);
